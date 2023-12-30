@@ -4,26 +4,29 @@ const cityTemp = document.querySelector('.cityTemp');
 const cityImgState = document.querySelector('.cityImgState');
 const forcastScroll = document.querySelector('.forcastScroll');
 const airCondationPart = document.querySelector('.airCondationPart');
-
+const weekForcast = document.querySelector('.weekForcast');
 let forecastDays = [];
-
+let locations = '';
 //fetch date from api
 async function getData() {
     const res = await fetch(
-        'http://api.weatherapi.com/v1/forecast.json?key=5b18c12fbe1b4ac3b6a154430232912&q=London&days=5&aqi=no&alerts=no'
+        'http://api.weatherapi.com/v1/forecast.json?key=5b18c12fbe1b4ac3b6a154430232912&q=cai&days=8&aqi=no&alerts=no'
         //
     );
     const data = await res.json();
-    // console.log(data.forecast.forecastday);
+    console.log(data.location.region);
     forecastDays = await data.forecast.forecastday;
+    locations = data.location.region;
     cityWeather();
     cityForecast();
     AirCondation();
+    displayWeekForcast();
 }
 getData();
 function cityWeather() {
     const today = forecastDays[0];
     // console.log(today);
+    cityName.innerHTML = locations;
     chanceRain.innerHTML = today.day.daily_chance_of_rain;
     cityTemp.innerHTML = today.day.avgtemp_c;
     cityImgState.src = `${today.day.condition.icon}`;
@@ -61,9 +64,11 @@ function AirCondation() {
 
     const thisHourData = forecastDays[0].hour[hourNow];
 
-    console.log(thisHourData);
+    console.log(forecastDays);
     airCondationPart.innerHTML = `
-    <div class="d-flex justify-content-between pb-3 align-content-center">
+       <div
+                                                            class="d-flex justify-content-between pb-3 align-content-center"
+                                                        >
                                                             <p class="m-0 pt-2">
                                                                 Air Condations
                                                             </p>
@@ -73,26 +78,95 @@ function AirCondation() {
                                                                 see more
                                                             </button>
                                                         </div>
-                                                        <div
-                                                            class="col-6 bg-body-"
-                                                        >
+                                                        <div class="col-sm-6">
                                                             <h5>
-                                                            <i class="fa-solid fa-temperature-half"></i>    Real Feel
-                                                                <h2 class="ps-4 text-white">${thisHourData.feelslike_c}°</h2>
-                                                            </h5>
-                                                            <h5>
-                                                            <i class="fa-solid fa-droplet"></i>    Chance of Rain
-                                                                <h2 class="ps-4 text-white">${thisHourData.chance_of_rain}%</h2>
+                                                                <i
+                                                                    class="fa-solid fa-temperature-half"
+                                                                ></i>
+                                                                Real Feel
+                                                                <h2
+                                                                    class="ps-4 text-white"
+                                                                >
+                                                                    ${thisHourData.feelslike_c}°
+                                                                </h2>
                                                             </h5>
                                                         </div>
-                                                        <div class="col-6">
+                                                        <div class="col-sm-6">
                                                             <h5>
-                                                              <i class="fa-solid fa-wind"></i>  Wind
-                                                                <h2 class="ps-4 text-white">${thisHourData.wind_kph} km/h</h2>
+                                                                <i
+                                                                    class="fa-solid fa-droplet"
+                                                                ></i>
+                                                                Chance of Rain
+                                                                <h2
+                                                                    class="ps-4 text-white"
+                                                                >
+                                                                    ${thisHourData.chance_of_rain}%
+                                                                </h2>
                                                             </h5>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                            <h5>
+                                                                <i
+                                                                    class="fa-solid fa-wind"
+                                                                ></i>
+                                                                Wind
+                                                                <h2
+                                                                    class="ps-4 text-white"
+                                                                >
+                                                                    ${thisHourData.wind_kph}
+                                                                    km/h
+                                                                </h2>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-sm-6">
                                                             <h5>
                                                                 UV index
-                                                                <h2 class="ps-4 text-white">3</h2>
+                                                                <h2
+                                                                    class="ps-4 text-white"
+                                                                >
+                                                                    3
+                                                                </h2>
                                                             </h5>
-                                                        </div>`;
+                                                        </div>
+    `;
+}
+function displayWeekForcast() {
+    let allWeekForcast = '';
+    console.log(forecastDays);
+    for (let i = 0; i < forecastDays.length; i++) {
+        allWeekForcast += `
+        <div
+                                                class="row align-items-center border-bottom border-secondary pb-2"
+                                            >
+                                                <div class="col-3">${
+                                                    i == 0 ? 'Today' : i
+                                                }</div>
+                                                <div
+                                                    class="col-6 d-flex align-items-center"
+                                                >
+                                             <img
+                                 src="${forecastDays[i].day.condition.icon}"
+                                                        alt=""
+                                                    />
+                                                    <span> ${
+                                                        forecastDays[i].day
+                                                            .condition.text
+                                                    }</span>
+                                                </div>
+                                                <div class="col-3">
+                                                    <span class="text-light">
+                                                        ${
+                                                            forecastDays[i].day
+                                                                .maxtemp_c
+                                                        } </span
+                                                    >/ ${
+                                                        forecastDays[i].day
+                                                            .mintemp_c
+                                                    }
+                                                </div>
+                                            </div>
+        `;
+    }
+    weekForcast.innerHTML = allWeekForcast;
 }
