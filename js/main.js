@@ -17,3 +17,11 @@ async function getData() {
     cityWeather();
 }
 getData();
+function cityWeather() {
+    const today = forecastDays[0];
+    console.log(today);
+    chanceRain.innerHTML = today.day.daily_chance_of_rain;
+    cityTemp.innerHTML = today.day.avgtemp_f;
+    cityImgState.src = `${today.day.condition.icon}`;
+    cityForecast();
+}
