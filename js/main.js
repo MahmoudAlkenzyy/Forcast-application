@@ -25,3 +25,27 @@ function cityWeather() {
     cityImgState.src = `${today.day.condition.icon}`;
     cityForecast();
 }
+function cityForecast() {
+    const todayForcast = forecastDays[0].hour;
+
+    console.log(todayForcast[0]);
+
+    let forcastHours = '';
+    for (let i = 6; i < todayForcast.length; i += 3) {
+        forcastHours += `<div class="col-2 text-center border-end border-secondary overflow-hidden">
+       <p>${dateFormat(todayForcast[i].time)}</p>
+       <img src="${todayForcast[i].condition.icon}" alt="" />
+       <h2>${todayForcast[i].temp_c}</h2>
+   </div>`;
+    }
+    forcastScroll.innerHTML = forcastHours;
+}
+function dateFormat(date) {
+    let time = date.slice(11);
+    let hours = Number(time.slice(0, 2));
+    if (hours <= 12) {
+        return `${hours}:00 AM `;
+    } else {
+        return `${hours - 12}:00 PM`;
+    }
+}
