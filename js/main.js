@@ -6,6 +6,7 @@ const forcastScroll = document.querySelector('.forcastScroll');
 const airCondationPart = document.querySelector('.airCondationPart');
 const weekForcast = document.querySelector('.weekForcast');
 const input = document.querySelector('input');
+
 let forecastDays = [];
 let locations = '';
 //fetch date from api
@@ -76,14 +77,16 @@ function AirCondation() {
 
     console.log(thisHourData);
     airCondationPart.innerHTML = `
-       <div
+      <div
                                                             class="d-flex justify-content-between pb-3 align-content-center"
                                                         >
                                                             <p class="m-0 pt-2">
                                                                 Air Condations
                                                             </p>
                                                             <button
-                                                                class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                            onClick={seeMore()}
+                                                                type="button"
+                                                                class="btn btn-primary rounded-pill seemore"
                                                             >
                                                                 see more
                                                             </button>
@@ -190,3 +193,7 @@ input.addEventListener('keyup', function (e) {
         getData(e.target.value);
     }
 });
+
+function seeMore() {
+    console.log('as');
+}
