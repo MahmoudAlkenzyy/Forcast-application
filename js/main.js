@@ -5,24 +5,30 @@ const cityImgState = document.querySelector('.cityImgState');
 const forcastScroll = document.querySelector('.forcastScroll');
 const airCondationPart = document.querySelector('.airCondationPart');
 const weekForcast = document.querySelector('.weekForcast');
+const input = document.querySelector('input');
 let forecastDays = [];
 let locations = '';
 //fetch date from api
-async function getData() {
+async function getData(querySearch) {
+    console.log(querySearch);
     const res = await fetch(
-        'http://api.weatherapi.com/v1/forecast.json?key=5b18c12fbe1b4ac3b6a154430232912&q=cai&days=8&aqi=no&alerts=no'
+        `http://api.weatherapi.com/v1/forecast.json?key=5b18c12fbe1b4ac3b6a154430232912&q=${querySearch}&days=7&aqi=no&alerts=no`
         //
     );
     const data = await res.json();
-    console.log(data.location.region);
+    console.log(data.location);
     forecastDays = await data.forecast.forecastday;
-    locations = data.location.region;
+    locations = data.location.name;
     cityWeather();
     cityForecast();
     AirCondation();
     displayWeekForcast();
 }
-getData();
+navigator.geolocation.getCurrentPosition(showPosition);
+function showPosition(position) {
+    querySearch = `${position.coords.latitude},${position.coords.longitude}`;
+    getData(querySearch);
+}
 function cityWeather() {
     const today = forecastDays[0];
     // console.log(today);
@@ -39,9 +45,13 @@ function cityForecast() {
 
     let forcastHours = '';
     for (let i = 6; i < todayForcast.length; i += 3) {
-        forcastHours += `<div class="col-2 text-center border-end border-secondary overflow-hidden">
+        forcastHours += `<div class="col-2 text-center  ${
+            i == todayForcast.length - 3 ? '' : ' border-end border-secondary'
+        } overflow-hidden">
        <p>${dateFormat(todayForcast[i].time)}</p>
-       <img src="${todayForcast[i].condition.icon}" alt="" />
+       <img src="${todayForcast[i].condition.icon}" alt="${
+            todayForcast[i].condition.text
+        }" />
        <h2>${todayForcast[i].temp_c}</h2>
    </div>`;
     }
@@ -137,7 +147,11 @@ function displayWeekForcast() {
     for (let i = 0; i < forecastDays.length; i++) {
         allWeekForcast += `
         <div
-                                                class="row align-items-center border-bottom border-secondary pb-2"
+                                                class="py-3 row align-items-center ${
+                                                    i == forecastDays.length - 1
+                                                        ? ''
+                                                        : ' border-bottom border-secondary'
+                                                } pb-2"
                                             >
                                                 <div class="col-3">${
                                                     i == 0 ? 'Today' : i
@@ -154,7 +168,7 @@ function displayWeekForcast() {
                                                             .condition.text
                                                     }</span>
                                                 </div>
-                                                <div class="col-3">
+                                                <div class="col-3 p-0">
                                                     <span class="text-light">
                                                         ${
                                                             forecastDays[i].day
@@ -170,3 +184,9 @@ function displayWeekForcast() {
     }
     weekForcast.innerHTML = allWeekForcast;
 }
+
+input.addEventListener('keyup', function (e) {
+    if (e.target.value.length >= 3) {
+        getData(e.target.value);
+    }
+});
