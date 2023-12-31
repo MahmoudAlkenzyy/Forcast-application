@@ -74,7 +74,7 @@ function AirCondation() {
 
     const thisHourData = forecastDays[0].hour[hourNow];
 
-    console.log(forecastDays);
+    console.log(thisHourData);
     airCondationPart.innerHTML = `
        <div
                                                             class="d-flex justify-content-between pb-3 align-content-center"
@@ -83,7 +83,7 @@ function AirCondation() {
                                                                 Air Condations
                                                             </p>
                                                             <button
-                                                                class="btn btn-primary rounded-pill"
+                                                                class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                             >
                                                                 see more
                                                             </button>
