@@ -36,10 +36,12 @@ async function getData(querySearch = 'cairo') {
     AirCondation();
     displayWeekForcast();
 }
+getData('cairo');
 navigator.geolocation.getCurrentPosition(showPosition);
 function showPosition(position) {
     querySearch = `${position.coords.latitude},${position.coords.longitude}`;
     getData(querySearch);
+    console.log(querySearch);
 }
 function cityWeather() {
     const today = forecastDays[0];
