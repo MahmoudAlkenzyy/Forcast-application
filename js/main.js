@@ -6,18 +6,27 @@ const forcastScroll = document.querySelector('.forcastScroll');
 const airCondationPart = document.querySelector('.airCondationPart');
 const weekForcast = document.querySelector('.weekForcast');
 const input = document.querySelector('input');
-
+const modalBody = document.querySelector('.modal-body');
+const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+];
 let forecastDays = [];
 let locations = '';
 //fetch date from api
 async function getData(querySearch) {
-    console.log(querySearch);
+    // console.log(querySearch);
     const res = await fetch(
         `http://api.weatherapi.com/v1/forecast.json?key=5b18c12fbe1b4ac3b6a154430232912&q=${querySearch}&days=7&aqi=no&alerts=no`
         //
     );
     const data = await res.json();
-    console.log(data.location);
+    // console.log(data.location);
     forecastDays = await data.forecast.forecastday;
     locations = data.location.name;
     cityWeather();
@@ -75,7 +84,7 @@ function AirCondation() {
 
     const thisHourData = forecastDays[0].hour[hourNow];
 
-    console.log(thisHourData);
+    // console.log(thisHourData);
     airCondationPart.innerHTML = `
       <div
                                                             class="d-flex justify-content-between pb-3 align-content-center"
@@ -86,6 +95,7 @@ function AirCondation() {
                                                             <button
                                                             onClick={seeMore()}
                                                                 type="button"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                                 class="btn btn-primary rounded-pill seemore"
                                                             >
                                                                 see more
@@ -146,32 +156,30 @@ function AirCondation() {
 }
 function displayWeekForcast() {
     let allWeekForcast = '';
-    console.log(forecastDays);
+    // console.log(forecastDays);
     for (let i = 0; i < forecastDays.length; i++) {
+        const date = new Date('July 21, 1983 01:15:00');
+        let day = date.getDay();
         allWeekForcast += `
-        <div
-                                                class="py-3 row align-items-center ${
-                                                    i == forecastDays.length - 1
-                                                        ? ''
-                                                        : ' border-bottom border-secondary'
-                                                } pb-2"
-                                            >
-                                                <div class="col-3">${
-                                                    i == 0 ? 'Today' : i
-                                                }</div>
-                                                <div
-                                                    class="col-6 d-flex align-items-center"
-                                                >
-                                             <img
-                                 src="${forecastDays[i].day.condition.icon}"
-                                                        alt=""
-                                                    />
+        <div class="pt-3 row row-gap-1 align-items-center ${
+            i == forecastDays.length - 1
+                ? ''
+                : ' border-bottom border-secondary'
+        } pb-2">
+                                            
+                         <div class="col-3 col-lg-6 col-xl-3 ">${
+                             i == 0 ? 'Today' : days[day]
+                         }</div>
+                             <div class="col-xl-6 col-lg-12 col-6 order-lg-first p-0 d-flex align-items-center">
+                                 <img src="${
+                                     forecastDays[i].day.condition.icon
+                                 }" alt=""/>
                                                     <span> ${
                                                         forecastDays[i].day
                                                             .condition.text
                                                     }</span>
                                                 </div>
-                                                <div class="col-3 p-0">
+                                                <div class="col-3 col-lg-6 col-xl-3 p-0">
                                                     <span class="text-light">
                                                         ${
                                                             forecastDays[i].day
@@ -195,5 +203,35 @@ input.addEventListener('keyup', function (e) {
 });
 
 function seeMore() {
-    console.log('as');
+    const data = forecastDays[0];
+    console.log(data);
+    modalBody.innerHTML = `
+  <div class='row p-3'>
+   <div class='col-lg-6  '>
+   <div class='row '>
+   <div class='col-6 p-0'>
+  <h3> <i class="bi bi-sunrise "></i> sunrise:</h3>
+  <h3> <i class="bi bi-sunset text-white-emphasis"></i> sunset: </h3>
+  <h3> <i class="bi bi-moon-stars"></i> moonrise:</h3>
+  <h3> <i class="bi bi-moon"></i> moonset:</h3>
+   </div>
+   
+   <div class='col-6 p-0'>
+   <h3> ${data.astro.sunrise}</h3>
+   <h3> ${data.astro.sunset}</h3>
+   <h3>  ${data.astro.moonrise}</h3>
+   <h3> ${data.astro.moonset}</h3>
+   </div>
+   
+    
+   </div>
+
+   </div>
+   <div class='col-lg-1'>
+   <img src='${data.day.condition.icon}' class='w-100' />
+   </div>
+
+  </div>
+  
+    `;
 }

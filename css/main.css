@@ -30,6 +30,9 @@
 .bg-main-sub {
     background-color: #202b3c;
 }
+.color-main-sub {
+    color: #202b3c;
+}
 .h-90 {
     height: 89%;
 }
@@ -49,9 +52,12 @@ input {
     padding: 0 !important;
 }
 .forcastScroll {
-    min-width: 550px;
+    min-width: 600px;
 }
-@media screen and (max-width: 771px) {
+.fotcastOverFlow {
+    overflow-y: hidden;
+}
+@media screen and (max-width: 1100px) {
     .fotcastOverFlow {
         overflow-y: auto;
     }
