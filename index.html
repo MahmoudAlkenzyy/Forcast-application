@@ -24,7 +24,7 @@
                 <div class="row p-md-3 min bg-main p-1">
                     <!---------------------- Start Side Bar ---------------------->
                     <div
-                        class="col-xl-1 col-2 min-vh-100 p-0 px-xl-1 px-md-4 d-none d-sm-block"
+                        class="col-xl-1 col-2 p-0 px-xl-1 px-md-4 d-none d-sm-block"
                     >
                         <div
                             class="inner p-0 bg-main-sub h-100 rounded-4 d-flex gap-3 flex-column align-items-center"
@@ -36,27 +36,27 @@
                                     class="img-fluid"
                                 />
                             </div>
-                            <a
+                            <button
                                 href=""
-                                class="text-white-50 d-flex flex-column text-decoration-none text-center"
+                                class="text-white-50 btn d-flex flex-column align-items-center"
                             >
                                 <i class="fa-solid fa-cloud-sun-rain"></i>
                                 <span> Weather </span>
-                            </a>
-                            <a
+                            </button>
+                            <button
                                 href=""
-                                class="text-white-50 d-flex flex-column text-decoration-none text-center"
+                                class="text-white-50 btn d-flex flex-column align-items-center"
                             >
                                 <i class="fa-solid fa-cloud-sun-rain"></i>
                                 <span> Weather </span>
-                            </a>
-                            <a
+                            </button>
+                            <button
                                 href=""
-                                class="text-white-50 d-flex flex-column text-decoration-none text-center"
+                                class="text-white-50 btn d-flex flex-column align-items-center"
                             >
                                 <i class="fa-solid fa-cloud-sun-rain"></i>
                                 <span> Weather </span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <!---------------------- End Side Bar ---------------------->
@@ -85,9 +85,9 @@
                                                     <div
                                                         class="row justify-content-between"
                                                     >
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-6">
                                                             <h2
-                                                                class="cityName"
+                                                                class="cityName display-5 fw-bold pt-4"
                                                             >
                                                                 Madrid
                                                             </h2>
@@ -158,11 +158,13 @@
                                 <!---------------------- End Middle Side ---------------------->
                                 <!---------------------- Start 7-Day's Fordcast Side ---------------------->
 
-                                <div class="col-lg-4 px-lg-2 py-2">
+                                <div class="col-lg-4 px-lg-2">
                                     <div
-                                        class="inner p-3 order-lg-first py-4 text-white-50 bg-main-sub rounded-4 h-100"
+                                        class="inner p-2 order-lg-first mt-2 mt-md-0 pt-3 text-white-50 bg-main-sub rounded-4 h-100"
                                     >
-                                        <p>7-Day's Forecast</p>
+                                        <p class="pt-2 px-2">
+                                            7-Day's Forecast
+                                        </p>
                                         <div
                                             class="container-fluid weekForcast"
                                         ></div>
@@ -183,10 +185,10 @@
             aria-hidden="true"
         >
             <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content bg-main text-white">
+                <div class="modal-content bg-main-sub rounded-4 text-white">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            Modal title
+                            Astro & Air Condations
                         </h5>
                         <button
                             type="button"

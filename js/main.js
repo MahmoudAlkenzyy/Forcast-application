@@ -16,6 +16,8 @@ const days = [
     'Friday',
     'Saturday',
 ];
+const dateNow = new Date();
+let hourNow = dateNow.getHours();
 let forecastDays = [];
 let locations = '';
 //fetch date from api
@@ -58,7 +60,7 @@ function cityForecast() {
         forcastHours += `<div class="col-2 text-center  ${
             i == todayForcast.length - 3 ? '' : ' border-end border-secondary'
         } overflow-hidden">
-       <p>${dateFormat(todayForcast[i].time)}</p>
+       <p >${dateFormat(todayForcast[i].time)}</p>
        <img src="${todayForcast[i].condition.icon}" alt="${
             todayForcast[i].condition.text
         }" />
@@ -79,98 +81,125 @@ function dateFormat(date) {
 }
 
 function AirCondation() {
-    const dateNow = new Date();
-    let hourNow = dateNow.getHours();
-
     const thisHourData = forecastDays[0].hour[hourNow];
 
     // console.log(thisHourData);
     airCondationPart.innerHTML = `
-      <div
-                                                            class="d-flex justify-content-between pb-3 align-content-center"
-                                                        >
-                                                            <p class="m-0 pt-2">
-                                                                Air Condations
-                                                            </p>
-                                                            <button
-                                                            onClick={seeMore()}
-                                                                type="button"
-                                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                                class="btn btn-primary rounded-pill seemore"
-                                                            >
-                                                                see more
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <h5>
-                                                                <i
-                                                                    class="fa-solid fa-temperature-half"
-                                                                ></i>
-                                                                Real Feel
-                                                                <h2
-                                                                    class="ps-4 text-white"
-                                                                >
-                                                                    ${thisHourData.feelslike_c}°
-                                                                </h2>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <h5>
-                                                                <i
-                                                                    class="fa-solid fa-droplet"
-                                                                ></i>
-                                                                Chance of Rain
-                                                                <h2
-                                                                    class="ps-4 text-white"
-                                                                >
-                                                                    ${thisHourData.chance_of_rain}%
-                                                                </h2>
-                                                            </h5>
-                                                        </div>
+      <div class="d-flex justify-content-between pb-3 align-content-center">
+     
+            <p class="m-0 pt-2">
+               Air Condations
+            </p>
+             <button onClick={seeMore()} type="button"
+                 data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  class="btn btn-primary rounded-pill seemore">see more
+             </button>
+        </div>
+        <div class="col-sm-6">
 
-                                                        <div class="col-sm-6">
-                                                            <h5>
-                                                                <i
-                                                                    class="fa-solid fa-wind"
-                                                                ></i>
-                                                                Wind
-                                                                <h2
-                                                                    class="ps-4 text-white"
-                                                                >
-                                                                    ${thisHourData.wind_kph}
-                                                                    km/h
-                                                                </h2>
-                                                            </h5>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <h5>
-                                                                UV index
-                                                                <h2
-                                                                    class="ps-4 text-white"
-                                                                >
-                                                                    3
-                                                                </h2>
-                                                            </h5>
-                                                        </div>
+
+            <div class="row row-gap-2 row-gap-sm-0">
+                <div class="col-6 col-sm-12">
+                    <h5>
+                       <i class="fa-solid fa-temperature-half"></i>
+                        Real Feel
+                    </h5>
+                </div>
+                <div class="col-6 col-sm-12">
+                    <h2 class="ps-4 text-white">
+                     ${thisHourData.feelslike_c}°
+                     </h2>
+                </div>
+
+
+            </div>
+            
+           
+        </div>
+        <div class="col-sm-6">
+
+
+
+  <div class="row">
+                <div class="col-6 col-sm-12">
+                    <h5>
+                        <i class="fa-solid fa-droplet"></i>
+                Chance of Rain
+                    </h5>
+                </div>
+                <div class="col-6 col-sm-12">
+                    <h2 class="ps-4 text-white">
+                     ${thisHourData.chance_of_rain}%
+                     </h2>
+                </div>
+
+
+            </div>
+
+
+
+
+           
+        </div>
+
+        <div class="col-sm-6">
+         <div class="row">
+                <div class="col-6 col-sm-12">
+                    <h5>
+                     <i class="fa-solid fa-wind"></i>
+                Wind
+                    </h5>
+                </div>
+                <div class="col-6 col-sm-12">
+                    <h2 class="ps-4 text-white">
+                    ${thisHourData.wind_kph}km/h
+                </h2>
+                </div>
+
+
+            </div>
+           
+
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+                <div class="col-6 col-sm-12">
+                    <h5>
+                       <i class="bi bi-eye"></i>
+                       visibility
+                    </h5>
+                </div>
+                <div class="col-6 col-sm-12">
+                    <h2 class="ps-4 text-white">
+                 ${thisHourData.vis_km}
+                     </h2>
+                </div>
+
+
+            </div>
+           
+        </div>
     `;
 }
 function displayWeekForcast() {
+    let day = dateNow.getDay();
+    // console.log(day);
     let allWeekForcast = '';
     // console.log(forecastDays);
     for (let i = 0; i < forecastDays.length; i++) {
-        const date = new Date('July 21, 1983 01:15:00');
-        let day = date.getDay();
         allWeekForcast += `
-        <div class="pt-3 row row-gap-1 align-items-center ${
+        <div class="pt-2 row row-gap-1 align-items-center ${
             i == forecastDays.length - 1
                 ? ''
                 : ' border-bottom border-secondary'
         } pb-2">
                                             
                          <div class="col-3 col-lg-6 col-xl-3 ">${
-                             i == 0 ? 'Today' : days[day]
+                             i == 0
+                                 ? 'Today'
+                                 : days[day + i > 6 ? day - 7 + i : day + i]
                          }</div>
-                             <div class="col-xl-6 col-lg-12 col-6 order-lg-first p-0 d-flex align-items-center">
+                             <div class="col-xl-6 col-lg-12 col-6 order-lg-first p-1 d-flex align-items-center">
                                  <img src="${
                                      forecastDays[i].day.condition.icon
                                  }" alt=""/>
@@ -179,8 +208,8 @@ function displayWeekForcast() {
                                                             .condition.text
                                                     }</span>
                                                 </div>
-                                                <div class="col-3 col-lg-6 col-xl-3 p-0">
-                                                    <span class="text-light">
+                                                <div class="col-3 col-lg-6 col-xl-3 p-0 d-flex">
+                                                    <span class="text-light ">
                                                         ${
                                                             forecastDays[i].day
                                                                 .maxtemp_c
@@ -206,32 +235,70 @@ function seeMore() {
     const data = forecastDays[0];
     console.log(data);
     modalBody.innerHTML = `
+
+  
   <div class='row p-3'>
-   <div class='col-lg-6  '>
-   <div class='row '>
-   <div class='col-6 p-0'>
-  <h3> <i class="bi bi-sunrise "></i> sunrise:</h3>
-  <h3> <i class="bi bi-sunset text-white-emphasis"></i> sunset: </h3>
-  <h3> <i class="bi bi-moon-stars"></i> moonrise:</h3>
-  <h3> <i class="bi bi-moon"></i> moonset:</h3>
-   </div>
-   
-   <div class='col-6 p-0'>
-   <h3> ${data.astro.sunrise}</h3>
-   <h3> ${data.astro.sunset}</h3>
-   <h3>  ${data.astro.moonrise}</h3>
-   <h3> ${data.astro.moonset}</h3>
-   </div>
-   
-    
-   </div>
+  <div class="col-lg-6 p-0">
+  <div class='col-lg-12 ' >
+  <div class=' text-white-50'><h4> <i class="bi bi-sunrise  "></i> Sunrise:</h4></div>
+  <div class='ps-4 ms-3'><h2>${data.astro.sunset}</h2></div>
+  
+  </div>
+  <div class='col-lg-12 ' >
+  
+     <div class='text-white-50'><h4> <i class="bi bi-sunset s "></i> Sunset: </h4></div>
+     <div class='ps-4 ms-3'><h2>${data.astro.sunrise}</h2></div>
+
+ </div>
+  
+   <div class='col-lg-12 ' >
+    <div class='text-white-50'><h4><i class="bi bi-moon-stars "></i> Moonrise: </h4></div>
+    <div class='ps-4 ms-3'><h2>${data.astro.moonrise}</h2></div>
+
+</div>
+    <div class='col-lg-12 ' >
+       <div class='text-white-50'><h4><i class="bi bi-moon "></i> Moonset:</h4></div>
+       <div class='ps-4 ms-3'><h2>${data.astro.moonset}</h2></div>
 
    </div>
-   <div class='col-lg-1'>
-   <img src='${data.day.condition.icon}' class='w-100' />
+   </div>
+
+
+
+
+
+
+
+   <div class='col-lg-6'>
+ <div class='col-lg-12 ' >
+       <div class='text-white-50'><h4><i class="bi bi-brightness-high "></i> UV index:</h4></div>
+       <div class='ps-4 ms-3'><h2>${data.day.uv}</h2></div>
+
+   </div>
+
+   <div class='col-lg-12 ' >
+       <div class=' text-white-50'><h4><i class="bi bi-moisture "></i> humidity: </h4></div>
+       <div class='ps-4 ms-3'><h2>${data.day.avghumidity}%</h2></div>
+
+   </div>
+
+   <div class='col-lg-12 ' >
+       <div class='text-white-50'><h4><i class="bi bi-compass "></i> Wind diriction</h4></div>
+       <div class='ps-4 ms-3'><h2>${data.hour[hourNow].wind_dir}</h2></div>
+
+   </div>
+
+   <div class='col-lg-12 ' >
+       <div class='text-white-50'><h4><i class="bi bi-moon"></i> Cloud:</h4></div>
+       <div class='ps-4 ms-3'><h2>${data.hour[hourNow].cloud}%</h2></div>
+
+   </div>
    </div>
 
   </div>
-  
+
+
+
+ 
     `;
 }

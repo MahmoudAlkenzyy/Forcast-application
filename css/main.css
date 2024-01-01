@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+body {
+    font-family: 'Roboto', sans-serif;
+}
 ::-webkit-scrollbar {
     width: auto;
     border-radius: 10px;
@@ -55,10 +59,10 @@ input {
     min-width: 600px;
 }
 .fotcastOverFlow {
-    overflow-y: hidden;
+    overflow-x: hidden;
 }
 @media screen and (max-width: 1100px) {
     .fotcastOverFlow {
-        overflow-y: auto;
+        overflow-x: auto;
     }
 }
