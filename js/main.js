@@ -21,7 +21,7 @@ let hourNow = dateNow.getHours();
 let forecastDays = [];
 let locations = '';
 //fetch date from api
-async function getData(querySearch) {
+async function getData(querySearch = 'cairo') {
     // console.log(querySearch);
     const res = await fetch(
         `http://api.weatherapi.com/v1/forecast.json?key=5b18c12fbe1b4ac3b6a154430232912&q=${querySearch}&days=7&aqi=no&alerts=no`
