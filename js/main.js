@@ -199,7 +199,7 @@ function displayWeekForcast() {
                                  ? 'Today'
                                  : days[day + i > 6 ? day - 7 + i : day + i]
                          }</div>
-                             <div class="col-xl-6 col-lg-12 col-6 order-lg-first p-1 d-flex align-items-center">
+                             <div class="col-xl-6 col-lg-12 col-6 order-lg-first order-xl-0 p-1 d-flex align-items-center">
                                  <img src="${
                                      forecastDays[i].day.condition.icon
                                  }" alt=""/>
