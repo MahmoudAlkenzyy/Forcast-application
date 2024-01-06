@@ -66,7 +66,7 @@ function cityForecast() {
        <img src="${todayForcast[i].condition.icon}" alt="${
             todayForcast[i].condition.text
         }" />
-       <h2>${todayForcast[i].temp_c}</h2>
+       <h2>${todayForcast[i].temp_c}°</h2>
    </div>`;
     }
     forcastScroll.innerHTML = forcastHours;

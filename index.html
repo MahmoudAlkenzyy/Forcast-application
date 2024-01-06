@@ -18,10 +18,10 @@
 
         <title>Forecast</title>
     </head>
-    <body class="bg-main">
-        <section>
+    <body>
+        <section id="bg" class="bg-main">
             <div class="container-fluid min-vh-100">
-                <div class="row p-md-3 min bg-main p-1">
+                <div class="row p-md-3 min p-1">
                     <!---------------------- Start Side Bar ---------------------->
                     <div
                         class="col-xl-1 col-2 p-0 px-xl-1 px-md-4 d-none d-sm-block"
@@ -80,7 +80,9 @@
                                         <div class="row gy-2">
                                             <!---------------------- Start City and info ---------------------->
 
-                                            <div class="text-white h-33">
+                                            <div
+                                                class="text-white h-33 bg-main-sub rounded-4"
+                                            >
                                                 <div class="container-fluid">
                                                     <div
                                                         class="row justify-content-between"
@@ -90,7 +92,7 @@
                                                                 class="cityName display-5 fw-bold pt-4"
                                                             ></h2>
                                                             <p
-                                                                class="text-secondary"
+                                                                class="text-white-50"
                                                             >
                                                                 Chance of rain:
                                                                 <span
@@ -201,8 +203,19 @@
                 </div>
             </div>
         </div>
-
         <script src="./js/bootstrap.bundle.min.js"></script>
         <script src="./js/main.js"></script>
+        <script src="./js/three.r134.min.js"></script>
+        <script src="./js/vanta.clouds.js"></script>
+        <script>
+            VANTA.CLOUDS({
+                el: '#bg',
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.0,
+                minWidth: 200.0,
+            });
+        </script>
     </body>
 </html>

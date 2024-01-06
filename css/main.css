@@ -32,7 +32,8 @@ body {
     background-color: #0b121e;
 }
 .bg-main-sub {
-    background-color: #202b3c;
+    background-color: #202b3c96;
+    backdrop-filter: blur(20px);
 }
 .color-main-sub {
     color: #202b3c;
@@ -47,7 +48,7 @@ body {
     color: white;
 }
 input {
-    background-color: #202b3c !important;
+    background-color: #202b3cb4 !important;
 }
 .h-33 {
     min-height: 33%;
