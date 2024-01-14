@@ -30,6 +30,7 @@ async function getData(querySearch = 'cairo') {
     const data = await res.json();
     // console.log(data.location);
     forecastDays = await data.forecast.forecastday;
+    console.log(data);
     locations = data.location.name;
     cityWeather();
     cityForecast();
@@ -185,9 +186,10 @@ function AirCondation() {
 }
 function displayWeekForcast() {
     let day = dateNow.getDay();
-    // console.log(day);
+    console.log(forecastDays.length);
+    document.querySelector('.numDays').innerHTML = forecastDays.length;
     let allWeekForcast = '';
-    // console.log(forecastDays);
+    console.log(forecastDays);
     for (let i = 0; i < forecastDays.length; i++) {
         allWeekForcast += `
         <div class="pt-2 row row-gap-1 align-items-center ${
